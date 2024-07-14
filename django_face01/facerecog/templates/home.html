@@ -1,0 +1,22 @@
+<!-- accounts/templates/accounts/home.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}</h1>
+    <p>First Name: {{ user.first_name }}</p>
+    <p>Last Name: {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Phone Number: {{ user.phone_number }}</p>
+    <p>Role: {{ user.get_role_display }}</p>
+    {% if user.photo_profile %}
+        <img src="{{ user.photo_profile.url }}" alt="Profile Photo" style="width:200px;height:auto;">
+    {% endif %}
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>

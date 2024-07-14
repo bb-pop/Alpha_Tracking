@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        #camera, #canvas, #preview {
+            display: block;
+            margin: 20px auto;
+        }
+        #preview {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Register</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="button" id="captureBtn">Capture Face</button>
+        <button type="submit">Confirm</button>
+        <input type="hidden" name="faceimage" id="faceimage">
+    </form>
+
+    <video id="camera" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+    <img id="preview" width="640" height="480">
+
+    <script>
+        // Get access to the camera
+        function setupCamera() {
+            const constraints = {
+                video: true
+            };
+
+            const video = document.getElementById('camera');
+
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then((stream) => {
+                    video.srcObject = stream;
+                })
+                .catch((err) => {
+                    console.error('Error accessing the camera: ', err);
+                });
+        }
+
+        // Capture the image from the camera
+        document.getElementById('captureBtn').addEventListener('click', function() {
+            const video = document.getElementById('camera');
+            const canvas = document.getElementById('canvas');
+            const preview = document.getElementById('preview');
+            const context = canvas.getContext('2d');
+
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataURL = canvas.toDataURL('image/png');
+            
+            document.getElementById('faceimage').value = dataURL;
+            preview.src = dataURL;
+            preview.style.display = 'block';
+        });
+
+        // Initialize the camera
+        setupCamera();
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Detection</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        #camera, #canvas, #preview {
+            display: block;
+            margin: 20px auto;
+        }
+        #preview {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Face Detection</h2>
+    <form method="post" enctype="multipart/form-data" id="faceForm">
+        {% csrf_token %}
+        <button type="button" id="captureBtn">Capture Face</button>
+        <input type="hidden" name="faceimage" id="faceimage">
+    </form>
+
+    <video id="camera" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+    <img id="preview" width="640" height="480">
+
+    <div id="result">
+        <!-- Results will be displayed here -->
+    </div>
+
+    <script>
+        function setupCamera() {
+            const constraints = {
+                video: true
+            };
+
+            const video = document.getElementById('camera');
+
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then((stream) => {
+                    video.srcObject = stream;
+                })
+                .catch((err) => {
+                    console.error('Error accessing the camera: ', err);
+                });
+        }
+
+        document.getElementById('captureBtn').addEventListener('click', function() {
+            const video = document.getElementById('camera');
+            const canvas = document.getElementById('canvas');
+            const preview = document.getElementById('preview');
+            const context = canvas.getContext('2d');
+
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataURL = canvas.toDataURL('image/png');
+
+            document.getElementById('faceimage').value = dataURL;
+            preview.src = dataURL;
+            preview.style.display = 'block';
+
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'face_detection' %}",
+                data: {
+                    'faceimage': dataURL,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#result').html(`
+                            <h3>${response.name}</h3>
+                            <p>Phone: ${response.number}</p>
+                            <img src="${response.faceimage}" width="100">
+                        `);
+                    } else {
+                        $('#result').html('<h3>Unknown</h3><p>Phone: -</p><p>Status: -</p>');
+                    }
+                }
+            });
+        });
+
+        setupCamera();
+    </script>
+</body>
+</html>
