@@ -1,10 +1,52 @@
-<!-- accounts/templates/accounts/home.html -->
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>HOME</title>
 </head>
 <body>
+    <!-- nav start -->
+    <nav><h1>TODAY OVERVIEW</h1>
+        TIME 11:11 PM
+    </nav>
+    <!-- nav end -->
+    <!-- sidebar start -->
+    <div class="sidebar">
+        <div class="logo">
+            <a href="/">
+                <img src="{% static 'images/logo.png'%}" alt="">
+            </a>
+        </div>
+        <!-- Profile User -->
+        <div class="profile">
+            <a href="">
+                <img src="" alt="">
+                
+            </a>
+        </div>
+
+        <div class="sidebar-menu">
+            <a href="">หน้าหลัก</a>
+        
+            <a href="">สแกนหน้า</a>
+        
+            <a href="">กล้องวงจร</a>
+        
+            <a href="">ระบบจัดการบุคคล</a>
+        
+            <a href="">รายงานความหนาแน่น</a>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">ออกจากระบบ</a>
+            </form>
+        </div>
+
+    </div>
+    <!-- sidebar end -->
+
     <h1>Welcome, {{ user.username }}</h1>
     <p>First Name: {{ user.first_name }}</p>
     <p>Last Name: {{ user.last_name }}</p>
@@ -18,5 +60,11 @@
         {% csrf_token %}
         <button type="submit">Logout</button>
     </form>
+
+    <!-- footer start -->
+    <footer><h6>alpha tracking(c)</h6>
+
+    </footer>
+    <!-- footer start -->
 </body>
 </html>
