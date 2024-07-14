@@ -19,9 +19,24 @@ class CustomUser(AbstractUser):
     ]
 
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=CASHIER)
-    email = models.EmailField(max_length=100, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     photo_profile = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
+
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='customuser_set',  # Add related_name to prevent clashes
+        blank=True,
+        help_text='The groups this user belongs to.',
+        verbose_name='groups',
+    )
+
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='customuser_set',  # Add related_name to prevent clashes
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions',
+    )
 
     def __str__(self):
         return self.username

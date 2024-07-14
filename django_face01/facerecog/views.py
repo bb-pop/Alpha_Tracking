@@ -114,7 +114,7 @@ class FaceDetectionView(View):
 def success(request):
     return render(request, 'success.html')
 
-def register(request):
+def register_user(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
@@ -123,7 +123,7 @@ def register(request):
             return redirect('home')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'register_cashier.html', {'form': form})
+    return render(request, 'register_user.html', {'form': form})
 
 @login_required
 def home(request):
