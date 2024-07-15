@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Face Detection</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
         #camera, #canvas, #preview {
             display: block;
@@ -16,6 +18,47 @@
     </style>
 </head>
 <body>
+    <!-- nav start -->
+    <nav><h1>TODAY OVERVIEW</h1>
+        TIME 11:11 PM
+    </nav>
+    <!-- nav end -->
+    <!-- sidebar start -->
+    <div class="sidebar">
+        <div class="logo">
+            <a href="/">
+                <img src="{% static 'images/logo.png'%}" alt="">
+            </a>
+        </div>
+        <!-- Profile User -->
+        <div class="profile">
+            <a href="">
+                {% if user.photo_profile %}
+                    <img src="{{ user.photo_profile.url }}" alt="Profile Photo" style="width:200px;height:auto;">
+                {% endif %}
+                <p>First Name: {{ user.first_name }}</p>
+                <p>Role: {{ user.get_role_display }}</p>
+            </a>
+        </div>
+
+        <div class="sidebar-menu">
+            <a href="{% url 'home' %}">หน้าหลัก</a>
+        
+            <a href="{% url 'face_detection' %}">สแกนหน้า</a>
+        
+            <a href="">กล้องวงจร</a>
+        
+            <a href="">ระบบจัดการบุคคล</a>
+        
+            <a href="">รายงานความหนาแน่น</a>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">ออกจากระบบ</a>
+            </form>
+        </div>
+
+    </div>
+    <!-- sidebar end -->
     <h2>Face Detection</h2>
     <form method="post" enctype="multipart/form-data" id="faceForm">
         {% csrf_token %}
@@ -84,5 +127,10 @@
 
         setupCamera();
     </script>
+    <!-- footer start -->
+    <footer><h6>alpha tracking(c)</h6>
+
+    </footer>
+    <!-- footer start -->
 </body>
 </html>

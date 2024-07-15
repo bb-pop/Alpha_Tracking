@@ -1,16 +1,27 @@
-<!-- accounts/templates/accounts/login.html -->
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>HOME</title>
 </head>
 <body>
+    <!-- nav start -->
+    <nav>
+    </nav>
+    <!-- nav end -->
     <h2>Login</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Login</button>
     </form>
-    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+    <!-- footer start -->
+    <footer><h6>alpha tracking(c)</h6>
+
+    </footer>
+    <!-- footer start -->
 </body>
 </html>

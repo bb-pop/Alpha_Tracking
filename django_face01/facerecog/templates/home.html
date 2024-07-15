@@ -22,16 +22,22 @@
         </div>
         <!-- Profile User -->
         <div class="profile">
-            <a href="">
-                <img src="" alt="">
-                
-            </a>
+            <div class="photo_profile">
+                {% if user.photo_profile %}
+                    <img src="{{ user.photo_profile.url }}" alt="Profile Photo">
+                {% endif %}
+            </div>
+            <div>
+                <p>{{ user.first_name }}</p>
+                <p>{{ user.get_role_display }}</p>
+            </div>
+        
         </div>
 
         <div class="sidebar-menu">
-            <a href="">หน้าหลัก</a>
+            <a href="{% url 'home' %}">หน้าหลัก</a>
         
-            <a href="">สแกนหน้า</a>
+            <a href="{% url 'face_detection' %}">สแกนหน้า</a>
         
             <a href="">กล้องวงจร</a>
         
@@ -40,7 +46,7 @@
             <a href="">รายงานความหนาแน่น</a>
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button type="submit">ออกจากระบบ</a>
+                <button type="submit">ออกจากระบบ</button>
             </form>
         </div>
 

@@ -1,5 +1,7 @@
+/* General Styles */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&family=Noto+Sans:ital,wght@0,500;1,500&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -9,8 +11,7 @@
     font-optical-sizing: auto;
     font-weight: 500;
     font-style: normal;
-    font-variation-settings:
-        "wdth" 100;
+    font-variation-settings: "wdth" 100;
     text-decoration: none;
 }
 
@@ -18,6 +19,7 @@ body {
     background: #1e1e1e;
 }
 
+/* Navigation */
 nav {
     display: flex;
     padding: 10px;
@@ -29,7 +31,6 @@ nav {
 }
 
 footer {
-    /* position: absolute; */
     display: flex;
     padding: 10px;
     height: 0.25vw;
@@ -40,63 +41,99 @@ footer {
     align-items: center;
 }
 
+/* Sidebar */
 .sidebar {
     position: fixed;
-    width: 20%;
+    width: 15%;
     height: 100%;
     padding: 30px;
     left: 0;
     top: 0;
-    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     min-width: 20vh;
     background: #19181c;
     color: #ffffff;
-    /* font-weight: 100; */
-    /* align-items: center; */
 }
 
 .sidebar .logo {
     margin-top: 7.5%;
     margin-bottom: 15%;
-    
 }
+
 .sidebar img {
     width: 75%; 
     margin-left: auto;
     margin-right: auto;
-    
 }
 
+/* Profile Section */
 .profile {
-    /* width: 100%; */
-    height: 15%;
-    background: linear-gradient(#19181c, #19181c) padding-box, linear-gradient(180deg,#706EFB, #f93f64) border-box;
+    background: linear-gradient(#19181c, #19181c) padding-box, linear-gradient(180deg, #706EFB, #f93f64) border-box;
     border-radius: 3vh;
     border: 1.5px solid transparent;
     margin-bottom: 15%;
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    text-align: left;
+    
 }
 
+.profile .photo_profile {
+    flex-shrink: 0;
+    margin-right: 5px;
+}
 
+.profile img {
+    border-radius: 50%;
+    width: 80px; /* Adjust size as needed */
+    height: 80px; /* Adjust size as needed */
+    object-fit: cover;
+}
 
+.profile div {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile p {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    margin-left: 10px;
+    padding: 0;
+}
+
+.profile p:first-of-type {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Sidebar Menu */
 .sidebar-menu {
     width: 100%;
     height: 5%;
     display: flex;
     flex-direction: column;
-    
 }
 
-.sidebar-menu a, form botton {
+.sidebar-menu a, button {
     width: 100%;
     padding: 15px;
     border-radius: 10px;
     color: #ffffff;
     background-color: #1e1e1e;
     margin-bottom: 20px;
+    border: none;
+    cursor: pointer;
 }
 
+.sidebar-menu a:hover ,button:hover {
+    background-color: #333;
+}
+
+/* Other Styles */
 body, html {
     margin: 0;
     padding: 0;
