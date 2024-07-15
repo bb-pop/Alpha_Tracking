@@ -143,7 +143,6 @@ footer {
     align-items: center;
     padding: 15px 20px;
     text-align: left;
-    
 }
 
 .profile .photo_profile {
@@ -153,8 +152,8 @@ footer {
 
 .profile img {
     border-radius: 50%;
-    width: 80px; /* Adjust size as needed */
-    height: 80px; /* Adjust size as needed */
+    width: 80px;
+    height: 80px;
     object-fit: cover;
 }
 
@@ -179,31 +178,49 @@ footer {
 /* Sidebar Menu */
 .sidebar-menu {
     width: 100%;
-    height: 5%;
     display: flex;
     flex-direction: column;
 }
 
 .sidebar-menu a, button {
     width: 100%;
-    padding: 15px;
+    padding: 10px;
     border-radius: 10px;
     color: #ffffff;
     background-color: #1e1e1e;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
-.sidebar-menu a:hover ,button:hover {
+.sidebar-menu a i, .sidebar-menu button i {
+    margin-right: 10px;
+}
+
+.sidebar-menu a:hover, button:hover {
     background-color: #333;
 }
 
-/* Other Styles */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+/* Submenu */
+.submenu {
+    display: none;
+    flex-direction: column;
+    padding-left: 20px;
+}
+
+.sidebar-menu a:hover + .submenu, .submenu:hover {
+    display: flex;
+}
+
+.submenu a {
+    background-color: transparent;
+    padding: 5px 10px;
+}
+
+.submenu a:hover {
+    background-color: #444;
 }
 
 .dashboard {

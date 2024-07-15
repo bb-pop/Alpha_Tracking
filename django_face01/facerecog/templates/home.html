@@ -13,64 +13,69 @@
         TIME 11:11 PM
     </nav>
     <!-- nav end -->
-    <!-- sidebar start -->
-    <div class="sidebar">
-        <div class="logo">
-            <a href="/">
-                <img src="{% static 'images/logo.png'%}" alt="">
-            </a>
-        </div>
-        <!-- Profile User -->
-        <div class="profile">
-            <div class="photo_profile">
-                {% if user.photo_profile %}
-                    <img src="{{ user.photo_profile.url }}" alt="Profile Photo">
-                {% endif %}
+    <!-- container start -->
+    <div class="container">
+        <!-- sidebar start -->
+        <div class="sidebar">
+            <div class="logo">
+                <a href="/">
+                    <img src="{% static 'images/logo.png'%}" alt="">
+                </a>
             </div>
-            <div>
-                <p>{{ user.first_name }}</p>
-                <p>{{ user.get_role_display }}</p>
+            <!-- Profile User -->
+            <div class="profile">
+                <div class="photo_profile">
+                    {% if user.photo_profile %}
+                        <img src="{{ user.photo_profile.url }}" alt="Profile Photo">
+                    {% endif %}
+                </div>
+                <div>
+                    <p>{{ user.first_name }}</p>
+                    <p>{{ user.get_role_display }}</p>
+                </div>
             </div>
-        
+            <div class="sidebar-menu">
+                <a href="{% url 'home' %}">หน้าหลัก</a>
+                <a href="{% url 'face_detection' %}">สแกนหน้า</a>
+                <a href="#">กล้องวงจร</a>
+                <div class="submenu">
+                    <a href="">กล้องตรวจจับ</a>
+                    <a href="">กล้องตรวจความถี่พื้นที่</a>
+                </div>
+                <a href="#">ระบบจัดการบุคคล</a>
+                <div class="submenu">
+                    <a href="">รายชื่อสมาชิก</a>
+                    <a href="">สมัครแคชเชียร์</a>
+                    <a href="">รายชื่อแคชเชียร์</a>
+                </div>
+                <a href="">รายงานความหนาแน่น</a>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">ออกจากระบบ</button>
+                </form>
+            </div>            
         </div>
-
-        <div class="sidebar-menu">
-            <a href="{% url 'home' %}">หน้าหลัก</a>
-        
-            <a href="{% url 'face_detection' %}">สแกนหน้า</a>
-        
-            <a href="">กล้องวงจร</a>
-        
-            <a href="">ระบบจัดการบุคคล</a>
-        
-            <a href="">รายงานความหนาแน่น</a>
+        <!-- sidebar end -->
+        <div class="content">
+            <h1>Welcome, {{ user.username }}</h1>
+            <p>First Name: {{ user.first_name }}</p>
+            <p>Last Name: {{ user.last_name }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Phone Number: {{ user.phone_number }}</p>
+            <p>Role: {{ user.get_role_display }}</p>
+            {% if user.photo_profile %}
+                <img src="{{ user.photo_profile.url }}" alt="Profile Photo" style="width:200px;height:auto;">
+            {% endif %}
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button type="submit">ออกจากระบบ</button>
+                <button type="submit">Logout</button>
             </form>
         </div>
-
     </div>
-    <!-- sidebar end -->
-
-    <h1>Welcome, {{ user.username }}</h1>
-    <p>First Name: {{ user.first_name }}</p>
-    <p>Last Name: {{ user.last_name }}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>Phone Number: {{ user.phone_number }}</p>
-    <p>Role: {{ user.get_role_display }}</p>
-    {% if user.photo_profile %}
-        <img src="{{ user.photo_profile.url }}" alt="Profile Photo" style="width:200px;height:auto;">
-    {% endif %}
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
-
+    <!-- container end -->
     <!-- footer start -->
     <footer><h6>alpha tracking(c)</h6>
-
     </footer>
-    <!-- footer start -->
+    <!-- footer end -->
 </body>
 </html>
