@@ -5,23 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>HOME</title>
+    <title>Login</title>
 </head>
 <body>
     <!-- nav start -->
     <nav>
     </nav>
     <!-- nav end -->
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
+    
+    <div class="login-container">
+        <div class="login-header">
+            <img src="{% static 'images/logo.png' %}" alt="Alpha Tracking Logo" class="logo">
+        </div>
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">ID :</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="password">PASSWORD :</label>
+                {{ form.password }}
+            </div>
+            <button type="submit" class="login-button">LOGIN</button>
+        </form>
+    </div>
+    
     <!-- footer start -->
-    <footer><h6>alpha tracking(c)</h6>
-
-    </footer>
-    <!-- footer start -->
+    <footer><h6>alpha tracking(c)</h6></footer>
+    <!-- footer end -->
 </body>
 </html>
