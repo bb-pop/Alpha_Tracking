@@ -17,7 +17,7 @@ class CustomUser(AbstractUser):
         (MANAGER, 'Manager'),
         (CASHIER, 'Cashier'),
     ]
-
+    name = models.CharField(max_length=100, blank=True, null=True)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default=CASHIER)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     photo_profile = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
