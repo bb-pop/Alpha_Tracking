@@ -1,15 +1,94 @@
-<!-- accounts/templates/accounts/register.html -->
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Register</title>
 </head>
 <body>
-    <h2>Register</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+    <!-- nav start -->
+    <nav><h1>TODAY OVERVIEW</h1>
+        TIME 11:11 PM
+    </nav>
+    <!-- nav end -->
+    <!-- footer start -->
+    <footer><h6>alpha tracking(c)</h6>
+    </footer>
+    <!-- footer end -->
+    <!-- container start -->
+    <div class="container">
+        <!-- sidebar start -->
+        <div class="sidebar">
+            <div class="logo">
+                <a href="/">
+                    <img src="{% static 'images/logo.png'%}" alt="">
+                </a>
+            </div>
+            <!-- Profile User -->
+            <div class="profile">
+                <div class="photo_profile">
+                    {% if user.photo_profile %}
+                        <img src="{{ user.photo_profile.url }}" alt="Profile Photo">
+                    {% endif %}
+                </div>
+                <div>
+                    <p>{{ user.name }}</p>
+                    <p>{{ user.get_role_display }}</p>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <a href="{% url 'home' %}">หน้าหลัก</a>
+                <a href="{% url 'face_detection' %}">สแกนหน้า</a>
+                <a href="#">กล้องวงจร</a>
+                <div class="submenu">
+                    <a href="">กล้องตรวจจับ</a>
+                    <a href="">กล้องตรวจความถี่พื้นที่</a>
+                </div>
+                <a href="#">ระบบจัดการบุคคล</a>
+                <div class="submenu">
+                    <a href="">รายชื่อสมาชิก</a>
+                    <a href="">สมัครแคชเชียร์</a>
+                    <a href="">รายชื่อแคชเชียร์</a>
+                </div>
+                <a href="">รายงานความหนาแน่น</a>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">ออกจากระบบ</button>
+                </form>
+            </div>            
+        </div>
+    </div>
+    <div class="register-container">
+        <h2>Register</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_id">ID *</label>
+                <input type="text" name="id" id="id_id" required>
+            </div>
+            <div class="form-group">
+                <label for="id_password">PASSWORD *</label>
+                <input type="password" name="password" id="id_password" required>
+            </div>
+            <div class="form-group">
+                <label for="id_confirm">CONFIRM *</label>
+                <input type="password" name="confirm" id="id_confirm" required>
+            </div>
+            <div class="form-group">
+                <label for="id_name">NAME *</label>
+                <input type="text" name="name" id="id_name" required>
+            </div>
+            <div class="form-group">
+                <label for="id_phone">PHONE *</label>
+                <input type="text" name="phone" id="id_phone" required>
+            </div>
+            <div class="button-group">
+                <button type="button" class="cancel-btn">CANCEL</button>
+                <button type="submit" class="confirm-btn">CONFIRM</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -107,9 +107,32 @@ footer {
     cursor: pointer;
 }
 
+.register-container {
+    background: #19181c;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 30px;
+    width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background-clip: padding-box;
+    position: relative;
+}
+
+.register-container:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #706EFB, #f93f64);
+    z-index: -1;
+}
+
 /* Sidebar */
 .sidebar {
-    position: fixed;
+    /* position: fixed; */
     width: 15%;
     height: 100%;
     padding: 30px;
