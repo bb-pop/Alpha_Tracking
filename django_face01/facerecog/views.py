@@ -170,7 +170,7 @@ def member_edit(request, pk):
             return redirect('member_list')
     else:
         form = PersonForm(instance=member)
-    return render(request, 'member_edit.html', {'form': form})
+    return render(request, 'member_edit.html', {'form': form, 'member': member})
 
 def member_delete(request, pk):
     member = get_object_or_404(Person, pk=pk)
