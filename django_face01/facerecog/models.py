@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 class Person(models.Model):
     name = models.CharField(max_length=100)
     number = models.CharField(max_length=15)
-    faceimage = models.ImageField(upload_to='face_images/')
+    faceimage = models.ImageField(upload_to='face_images/', blank=True, null=True)
     face_encode = models.BinaryField(null=True, blank=True)
 
     def __str__(self):

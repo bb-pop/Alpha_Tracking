@@ -156,7 +156,6 @@ def user_detail(request, user_id):
         form = UserUpdateForm(instance=user)
     return render(request, 'user_detail.html', {'form': form, 'user': user})
 
-# member list, edit, delete
 def member_list(request):
     members = Person.objects.all()
     return render(request, 'member_list.html', {'members': members})
@@ -164,7 +163,7 @@ def member_list(request):
 def member_edit(request, pk):
     member = get_object_or_404(Person, pk=pk)
     if request.method == "POST":
-        form = PersonForm(request.POST, instance=member)
+        form = PersonForm(request.POST, request.FILES, instance=member)
         if form.is_valid():
             form.save()
             return redirect('member_list')
