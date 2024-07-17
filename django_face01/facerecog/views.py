@@ -1,15 +1,15 @@
 import base64
 from django.core.files.base import ContentFile
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import JsonResponse, HttpResponse
 from django.views import View
-from .forms import RegisterForm, CustomUserCreationForm
+from .forms import RegisterForm, CustomUserCreationForm, UserUpdateForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from .models import Person
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import Person, CustomUser
 import face_recognition
 import numpy as np
 import cv2
@@ -131,3 +131,27 @@ def home(request):
 
 class CustomLoginView(auth_views.LoginView):
     template_name = 'login.html'
+
+def is_manager(user):
+    return user.role == 'manager'
+
+@login_required
+@user_passes_test(is_manager)
+def manager_dashboard(request):
+    managers = CustomUser.objects.filter(role='manager')
+    cashiers = CustomUser.objects.filter(role='cashier')
+    users = list(managers) + list(cashiers)
+    return render(request, 'manager_dashboard.html', {'users': users})
+
+@login_required
+@user_passes_test(is_manager)
+def user_detail(request, user_id):
+    user = get_object_or_404(CustomUser, id=user_id)
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('manager_dashboard')
+    else:
+        form = UserUpdateForm(instance=user)
+    return render(request, 'user_detail.html', {'form': form, 'user': user})

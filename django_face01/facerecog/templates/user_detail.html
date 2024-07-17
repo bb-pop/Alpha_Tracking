@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Detail</title>
+</head>
+<body>
+    <h2>User Detail</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save changes</button>
+    </form>
+    {% if user.photo_profile %}
+        <h3>Current Profile Photo:</h3>
+        <img src="{{ user.photo_profile.url }}" alt="Profile Photo" style="width:200px;height:auto;">
+    {% endif %}
+    <p><a href="{% url 'manager_dashboard' %}">Back to Dashboard</a></p>
+</body>
+</html>

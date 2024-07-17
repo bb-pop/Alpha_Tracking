@@ -1,0 +1,25 @@
+<!-- templates/cashier_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cashier List</title>
+</head>
+<body>
+    <h1>CASHIER</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>PHONE</th>
+        </tr>
+        {% for cashier in cashiers %}
+        <tr>
+            <td>{{ cashier.id }}</td>
+            <td>{{ cashier.name }}</td>
+            <td>{{ cashier.phone_number }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
