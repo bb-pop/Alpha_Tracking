@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Member</title>
+</head>
+<body>
+    <h2>Edit Member</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    {% if member.faceimage %}
+        <h3>Current Face Image:</h3>
+        <img src="{{ member.faceimage.url }}" alt="{{ member.name }}" style="max-width: 200px; max-height: 200px;">
+    {% endif %}
+</body>
+</html>

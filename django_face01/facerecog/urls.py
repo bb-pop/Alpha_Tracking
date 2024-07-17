@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterView, CaptureFaceView, manager_dashboard, success, FaceDetectionView, home, CustomLoginView, register_user, user_detail
+from .views import RegisterView, CaptureFaceView, manager_dashboard, member_delete, member_edit, member_list, success, FaceDetectionView, home, CustomLoginView, register_user, user_detail
 # from django.views.generic import TemplateView
 from django.contrib.auth import views as auth_views
 # from . import views
@@ -15,4 +15,7 @@ urlpatterns = [
     path('', home, name='home'),
     path('manager/', manager_dashboard, name='manager_dashboard'),
     path('user/<int:user_id>/', user_detail, name='user_detail'),
+    path('members/', member_list, name='member_list'),
+    path('members/edit/<int:pk>/', member_edit, name='member_edit'),
+    path('members/delete/<int:pk>/', member_delete, name='member_delete'),
 ]

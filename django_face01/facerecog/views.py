@@ -3,7 +3,7 @@ from django.core.files.base import ContentFile
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import JsonResponse, HttpResponse
 from django.views import View
-from .forms import RegisterForm, CustomUserCreationForm, UserUpdateForm
+from .forms import RegisterForm, CustomUserCreationForm, UserUpdateForm, PersonForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -155,3 +155,26 @@ def user_detail(request, user_id):
     else:
         form = UserUpdateForm(instance=user)
     return render(request, 'user_detail.html', {'form': form, 'user': user})
+
+# member list, edit, delete
+def member_list(request):
+    members = Person.objects.all()
+    return render(request, 'member_list.html', {'members': members})
+
+def member_edit(request, pk):
+    member = get_object_or_404(Person, pk=pk)
+    if request.method == "POST":
+        form = PersonForm(request.POST, instance=member)
+        if form.is_valid():
+            form.save()
+            return redirect('member_list')
+    else:
+        form = PersonForm(instance=member)
+    return render(request, 'member_edit.html', {'form': form})
+
+def member_delete(request, pk):
+    member = get_object_or_404(Person, pk=pk)
+    if request.method == "POST":
+        member.delete()
+        return redirect('member_list')
+    return render(request, 'member_confirm_delete.html', {'member': member})
